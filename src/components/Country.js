@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import countryImage from "../resources/images/country.jpg";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 
 class Country extends React.Component {
     state = {country: [], region: []}
@@ -22,13 +23,16 @@ class Country extends React.Component {
                     <div className="card-body">
                         <h2 className="card-header">{country.country.name}</h2>
                     </div>
+                    <Link to={`/country/${country.country.id}/edit`}>
+                        <FontAwesomeIcon icon={faEdit}/></Link>
                 </div>
             )
         })
         const regionList = this.state.region.map(regions => {
             return (
                 <h5 className="card-header" key={regions.region.id}>
-                    <Link to={`/d/` + this.props.match.params.countryKey + `/${regions.region.key}`}>{regions.region.name}</Link>
+                    <Link
+                        to={'/d/' + this.props.match.params.countryKey + `/${regions.region.key}`}>{regions.region.name}</Link>
                     <img src="" alt=""/>
                 </h5>
             )

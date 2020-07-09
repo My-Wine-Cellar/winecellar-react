@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import regionImage from "../resources/images/region.jpg";
 
 class Region extends React.Component {
     state = {region: [], area: []}

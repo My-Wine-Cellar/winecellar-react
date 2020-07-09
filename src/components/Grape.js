@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import grape from "../resources/images/grape.jpg"
 
 class Grape extends React.Component {
     state = {red: [], white: []}
@@ -23,14 +22,14 @@ class Grape extends React.Component {
         const redGrapes = this.state.red.map(red => {
             return (
                 <h5 className="card-header" key={red.grape.id}>
-                    <Link to={"/grape/" + `${red.grape.key}`}>{red.grape.name}</Link>
+                    <Link to={`/grape/${red.grape.key}`}>{red.grape.name}</Link>
                 </h5>
             )
         })
         const whiteGrapes = this.state.white.map(white => {
             return (
                 <h5 className="card-header" key={white.grape.key}>
-                    <Link to={"/grape/" + `${white.grape.key}`}>{white.grape.name}</Link>
+                    <Link to={`/grape/${white.grape.key}`}>{white.grape.name}</Link>
                 </h5>
             )
         })
