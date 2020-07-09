@@ -39,7 +39,7 @@ class Area extends React.Component {
         const grapeList = this.state.grape.map(grape => {
             return (
                 <h5 className="card-header" key={grape.grape.id}>
-                    <Link to={"/grape/" + `${grape.grape.key}`}>{grape.grape.name}</Link>
+                    <Link to={`/grape/${grape.grape.key}`}>{grape.grape.name}</Link>
                 </h5>
             )
         })
@@ -63,6 +63,7 @@ class Area extends React.Component {
                         </div>
                     </div>
                 </div>
+                {/* TODO add grape button here*/}
             </div>
         );
     }
