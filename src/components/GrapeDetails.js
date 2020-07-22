@@ -1,37 +1,33 @@
-import React from "react";
-import axios from "axios";
+import React, {useEffect, useState} from "react";
+import Api from "./axios/Api";
+import EntityCardHeader from "./cards/EntityCardHeader";
 
-class GrapeDetails extends React.Component {
-    state = {grape: []}
+const GrapeDetails = (props) => {
+    const [grape, setGrape] = useState([])
 
-    componentDidMount() {
-        axios.get("/api/grape/" + this.props.match.params.grapeKey)
-            .then(response => {
-                this.setState({grape: response.data.mywinecellar.grapes})
-            })
-    }
+    useEffect(() => {
+        Api.get('/grape/' + props.match.params.grapeKey)
+            .then(response => setGrape(response.data.mywinecellar.grapes))
+            .catch(error => console.log('Error: ', error))
+    })
 
-    render() {
-        const grape = this.state.grape.map(grape => {
-            return (
-                <h5 className="card-header text-center" key={grape.grape.id}>
-                    {grape.grape.name}
-                </h5>
-            )
-        })
+    const grp = grape.map(grape => {
         return (
-            <div className="container">
-                <div className="card p-2 shadow">
-                    <div className="container">
-                        <div className="card shadow p-4 m-3">
-                            {grape}
-                        </div>
+            <EntityCardHeader key={grape.grape.id} name={grape.grape.name}/>
+        )
+    })
+
+    return (
+        <div className="container">
+            <div className="card p-2 shadow">
+                <div className="container">
+                    <div className="card shadow p-4 m-3">
+                        {grp}
                     </div>
                 </div>
             </div>
-        )
-    }
-
+        </div>
+    )
 }
 
 export default GrapeDetails;

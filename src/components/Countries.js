@@ -1,47 +1,30 @@
-import React from "react";
-import axios from "axios";
+import React, {useEffect, useState} from "react";
+import Api from "./axios/Api";
 import {Link} from "react-router-dom";
+import EntityCardList from "./cards/EntityCardList";
 
-class Countries extends React.Component {
-    state = {country: []};
+const Countries = () => {
 
-    componentDidMount() {
-        axios.get("/api/countries")
+    const [country, setCountry] = useState([]);
+
+    useEffect(() => {
+        Api.get('/countries')
             .then(response => {
-                this.setState({country: response.data.mywinecellar.countries})
-            })
-            .catch(error => console.log("Error: ", error.status));
-    }
+                setCountry(response.data.mywinecellar.countries)
+            }).catch(error => console.log("Error: ", error))
+    }, [])
 
-    render() {
-        const countrylist = this.state.country.map(countries => {
-            return (
-                <h5 className="card-header" key={countries.country.id}>
-                    <Link to={`/d/${countries.country.key}`}>{countries.country.name}  </Link>
-                    <img src={require(`../resources/images/flags/${countries.country.flag}.png`)} alt={countries.country.name}/>
-                </h5>
-            )
-        });
-        // document.body.style.backgroundImage = `url(${countryImage})`;
-        // document.body.style.backgroundSize = 'cover';
+    const countrylist = country.map(country => {
         return (
-            <div className="container">
-                <div className="card p-2 shadow">
-                    <div className="container justify-content-center">
-                        <br/>
-                        <h2 align="center">Countries</h2>
-                        <br/>
-                        <div className="card text-center">
-                            <div className="card-body p-1">
-                                {countrylist}
-                            </div>
-                        </div>
-                        <br/>
-                    </div>
-                </div>
-            </div>
+            <h5 className="card-header" key={country.country.id}>
+                <Link to={`/d/${country.country.key}`}>{country.country.name}  </Link>
+                <img src={require(`../resources/images/flags/${country.country.flag}.png`)} alt={country.country.name}/>
+            </h5>
         )
-    }
-}
+    });
 
+    return (
+        <EntityCardList list={countrylist} listName='Countries'/>
+    )
+}
 export default Countries;
