@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import App from "./components/App"
+import {Routes} from "./routes";
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<Routes/>, document.querySelector("#root"));
