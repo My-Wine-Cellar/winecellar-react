@@ -38,22 +38,10 @@ const Grape = () => {
             <div className="card shadow">
                 <div className="row p-3">
                     <div className="col-sm">
-                        <h2 align="center">Red Grapes</h2>
-                        {/*<div className="card">*/}
-                        {/*    <div className="card-body p-1">*/}
-                        {/*        {redGrapes}*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <EntityCardList list={redGrapes}/>
+                        <EntityCardList list={redGrapes} listName='Red Grapes'/>
                     </div>
                     <div className="col-sm">
-                        <h2 align="center">White Grapes</h2>
-                        {/*<div className="card">*/}
-                        {/*    <div className="card-body p-1">*/}
-                        {/*        {whiteGrapes}*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <EntityCardList list={whiteGrapes}/>
+                        <EntityCardList list={whiteGrapes} listName='White Grapes'/>
                     </div>
                 </div>
             </div>

@@ -20,11 +20,15 @@ const Country = (props) => {
 
     const cntry = country.map(country => {
         return (
-            <>
+            <div className='text-center'>
                 <EntityCardHeader key={country.country.id} name={country.country.name}/>
-                <Link to={`/country/${country.country.id}/edit`}>
-                    <FontAwesomeIcon icon={faEdit}/></Link>
-            </>
+                <div className='text-right'>
+                    <Link to={`/country/${country.country.id}/edit`}>
+                        <FontAwesomeIcon icon={faEdit}/></Link>
+                </div>
+                <p>Weblink: {country.country.weblink}</p>
+                <p>Description: {country.country.description}</p>
+            </div>
         )
     })
 
