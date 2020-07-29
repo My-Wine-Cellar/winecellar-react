@@ -1,51 +1,36 @@
-import React, {useEffect, useState} from "react";
-import Api from "./axios/Api";
-import {Link} from "react-router-dom";
-import EntityCardList from "./cards/EntityCardList";
+import React from "react";
+import EntityHeader from "./cards/EntityHeader";
+import {useGrapeByKeyGet, useGrapeGet} from "./hooks/entityHooks";
 
-const Grape = () => {
-    const [red, setRed] = useState([]);
-    const [white, setWhite] = useState([]);
+const Grape = (props) => {
+    const grape = useGrapeGet(props);
+    const data = useGrapeByKeyGet(props);
 
-    useEffect(() => {
-        Api.get('/grape/red')
-            .then(response => {
-                setRed(response.data.mywinecellar.grapes)
-            }).catch(error => console.log('Error: ', error))
-        Api.get('/grape/white')
-            .then(response => {
-                setWhite(response.data.mywinecellar.grapes)
-            }).catch(error => console.log('Error: ', error))
-    }, [])
-
-    const redGrapes = red.map(red => {
+    const grp = grape.map(grape => {
         return (
-            <h5 className="card-header" key={red.grape.id}>
-                <Link to={`/grape/${red.grape.key}`}>{red.grape.name}</Link>
-            </h5>
-        )
-    })
-    const whiteGrapes = white.map(white => {
-        return (
-            <h5 className="card-header" key={white.grape.key}>
-                <Link to={`/grape/${white.grape.key}`}>{white.grape.name}</Link>
-            </h5>
+            <EntityHeader
+                key={grape.grape.id}
+                name={grape.grape.name}
+                weblink={grape.grape.weblink}
+                description={grape.grape.description}
+                id={grape.grape.id}
+                entity={"grape"}
+                data={data}
+            />
         )
     })
 
     return (
         <div className="container">
-            <div className="card shadow">
-                <div className="row p-3">
-                    <div className="col-sm">
-                        <EntityCardList list={redGrapes} listName='Red Grapes'/>
-                    </div>
-                    <div className="col-sm">
-                        <EntityCardList list={whiteGrapes} listName='White Grapes'/>
+            <div className="card p-2 shadow">
+                <div className="container">
+                    <div className="card shadow p-4 m-3">
+                        {grp}
                     </div>
                 </div>
             </div>
         </div>
     )
 }
+
 export default Grape;

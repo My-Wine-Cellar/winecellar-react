@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Api from "./axios/Api";
-import EntityCardHeader from "./cards/EntityCardHeader";
+import EntityHeader from "./cards/EntityHeader";
 
 const Wine = (props) => {
     const [wine, setWine] = useState([])
@@ -25,7 +25,7 @@ const Wine = (props) => {
     const wn = wine.map(wine => {
         return (
             <div>
-                <EntityCardHeader key={wine.wine.id} name={wine.wine.name}/>
+                <EntityHeader key={wine.wine.id} name={wine.wine.name}/>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 mt-3">

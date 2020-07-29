@@ -1,26 +1,36 @@
-import React, {useEffect, useState} from "react";
-import Api from "./axios/Api";
+import React from "react";
 import {Link} from "react-router-dom";
-import EntityCardHeader from "./cards/EntityCardHeader";
-import EntityCardList from "./cards/EntityCardList";
+import EntityHeader from "./cards/EntityHeader";
+import EntityList from "./cards/EntityList";
+import {useAreaByKeyGet, useAreaGet} from "./hooks/entityHooks";
+import Paper from "@material-ui/core/Paper";
+import {makeStyles} from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+}));
 
 const Area = (props) => {
-    const [area, setArea] = useState([]);
-    const [producer, setProducer] = useState([]);
-    const [grape, setGrape] = useState([]);
+    const classes = useStyles();
 
-    useEffect(() => {
-        Api.get('/' + props.match.params.countryKey + '/' + props.match.params.regionKey + '/' + props.match.params.areaKey)
-            .then(response => {
-                setArea(response.data.mywinecellar.areas)
-                setProducer(response.data.mywinecellar.producers)
-                setGrape(response.data.mywinecellar.grapes)
-            }).catch(error => console.log('Error: ', error))
-    }, [])
+    const {area, producer, grape} = useAreaGet(props)
+    const data = useAreaByKeyGet(props)
 
     const ar = area.map(area => {
         return (
-            <EntityCardHeader key={area.area.id} name={area.area.name}/>
+            <EntityHeader
+                key={area.area.id}
+                name={area.area.name}
+                weblink={area.area.weblink}
+                description={area.area.description}
+                id={area.area.id}
+                entity={"area"}
+                data={data}
+            />
         )
     })
 
@@ -43,14 +53,13 @@ const Area = (props) => {
     })
 
     return (
-        <div className="container justify-content-center">
+        <Paper className={classes.paper} elevation={7}>
             {ar}
-            <h3 align="center">Producers</h3>
-            <EntityCardList list={producerList}/>
-            <h3 align="center">Grapes</h3>
-            <EntityCardList list={grapeList}/>
+            <EntityList list={producerList} listName={'Producers'}/>
+            {/* TODO add producer button here*/}
+            <EntityList list={grapeList} listName={'Grapes'}/>
             {/* TODO add grape button here*/}
-        </div>
+        </Paper>
     );
 }
 export default Area;
