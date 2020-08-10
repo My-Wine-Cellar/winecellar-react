@@ -1,21 +1,15 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
 
-const FormInput = ({label, name, type, value, placeholder, disabled, error}) => {
+export default function FormInput(props) {
+
+    const {name, label, value, onChange} = props;
+
     return (
-        <div>
-            <label htmlFor={name}>{label}</label>
-            <input
-                id={name}
-                name={name}
-                type={type}
-                value={value}
-                placeholder={placeholder}
-                disabled={disabled}
-                className='form-control'
-                style={error && {border: 'solid 1px red'}}
+        <>
+            <TextField multiline margin="dense" fullWidth label={label} value={value}
+                       onChange={onChange} name={name}
             />
-            {error && <p>{error}</p>}
-        </div>
+        </>
     )
 }
-export default FormInput;

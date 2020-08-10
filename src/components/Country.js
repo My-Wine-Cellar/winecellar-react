@@ -1,34 +1,38 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit} from "@fortawesome/free-solid-svg-icons";
-import Api from "./axios/Api";
-import EntityCardHeader from "./cards/EntityCardHeader";
-import EntityCardList from "./cards/EntityCardList";
+import EntityHeader from "./cards/EntityHeader";
+import EntityList from "./cards/EntityList";
+import {useCountryByKeyGet, useCountryGet} from "./hooks/entityHooks";
+import Paper from "@material-ui/core/Paper";
+import {makeStyles} from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+}));
 
 const Country = (props) => {
-    const [country, setCountry] = useState([]);
-    const [region, setRegion] = useState([]);
+    const classes = useStyles();
 
-    useEffect(() => {
-        Api.get('/' + props.match.params.countryKey)
-            .then(response => {
-                setCountry(response.data.mywinecellar.countries)
-                setRegion(response.data.mywinecellar.regions)
-            }).catch(error => console.log("Error: ", error))
-    }, [])
+    const {country, region} = useCountryGet(props);
+    const data = useCountryByKeyGet(props);
 
     const cntry = country.map(country => {
         return (
-            <div className='text-center'>
-                <EntityCardHeader key={country.country.id} name={country.country.name}/>
-                <div className='text-right'>
-                    <Link to={`/country/${country.country.id}/edit`}>
-                        <FontAwesomeIcon icon={faEdit}/></Link>
-                </div>
-                <p>Weblink: {country.country.weblink}</p>
-                <p>Description: {country.country.description}</p>
-            </div>
+            <>
+                <EntityHeader
+                    key={country.country.id}
+                    name={country.country.name}
+                    weblink={country.country.weblink}
+                    description={country.country.description}
+                    id={country.country.id}
+                    entity={"country"}
+                    data={data}
+                />
+            </>
         )
     })
 
@@ -43,16 +47,10 @@ const Country = (props) => {
     })
 
     return (
-        <div>
-            <div className="container">
-                <div className="card p-2 shadow">
-                    <div className="container justify-content-center">
-                        {cntry}
-                    </div>
-                </div>
-            </div>
-            <EntityCardList list={regionList} listName='Regions'/>
-        </div>
+        <Paper className={classes.paper}>
+            {cntry}
+            <EntityList list={regionList} listName='Regions'/>
+        </Paper>
     );
 }
 export default Country;

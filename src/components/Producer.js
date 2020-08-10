@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Api from "./axios/Api";
-import EntityCardHeader from "./cards/EntityCardHeader";
+import EntityHeader from "./cards/EntityHeader";
 
 const Producer = (props) => {
     const [wine, setWine] = useState([])
@@ -19,7 +19,7 @@ const Producer = (props) => {
     const prdcr = producer.map(producer => {
         return (
             <div>
-                <EntityCardHeader key={producer.producer.id} name={producer.producer.name}/>
+                <EntityHeader key={producer.producer.id} name={producer.producer.name}/>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 mt-3">

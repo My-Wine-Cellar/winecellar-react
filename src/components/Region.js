@@ -1,24 +1,36 @@
-import React, {useEffect, useState} from "react";
-import Api from "./axios/Api";
+import React from "react";
 import {Link} from "react-router-dom";
-import EntityCardHeader from "./cards/EntityCardHeader";
-import EntityCardList from "./cards/EntityCardList";
+import EntityHeader from "./cards/EntityHeader";
+import EntityList from "./cards/EntityList";
+import {useRegionByKeyGet, useRegionGet} from "./hooks/entityHooks";
+import {makeStyles} from "@material-ui/styles";
+import Paper from "@material-ui/core/Paper";
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+}));
 
 const Region = (props) => {
-    const [region, setRegion] = useState([]);
-    const [area, setArea] = useState([]);
+    const classes = useStyles();
 
-    useEffect(() => {
-        Api.get('/' + props.match.params.countryKey + '/' + props.match.params.regionKey)
-            .then(response => {
-                setRegion(response.data.mywinecellar.regions)
-                setArea(response.data.mywinecellar.areas)
-            }).catch(error => console.log("Error: ", error))
-    }, [])
+    const {region, area} = useRegionGet(props)
+    const data = useRegionByKeyGet(props)
 
     const rgn = region.map(region => {
         return (
-            <EntityCardHeader key={region.region.id} name={region.region.name}/>
+            <EntityHeader
+                key={region.region.id}
+                name={region.region.name}
+                weblink={region.region.weblink}
+                description={region.region.description}
+                id={region.region.id}
+                entity={"region"}
+                data={data}
+            />
         )
     })
 
@@ -32,18 +44,10 @@ const Region = (props) => {
     })
 
     return (
-        <div>
-            <div>
-                <div className="container">
-                    <div className="card p-2 shadow">
-                        <div className="container justify-content-center">
-                            {rgn}
-                        </div>
-                    </div>
-                </div>
-                <EntityCardList list={areaList} listName='Areas'/>
-            </div>
-        </div>
+        <Paper className={classes.paper} elevation={24}>
+            {rgn}
+            <EntityList list={areaList} listName='Areas'/>
+        </Paper>
     );
 }
 
