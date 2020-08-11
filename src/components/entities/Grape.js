@@ -1,6 +1,6 @@
 import React from "react";
-import EntityHeader from "./cards/EntityHeader";
-import {useGrapeByKeyGet, useGrapeGet} from "./hooks/entityHooks";
+import EntityHeader from "./EntityHeader";
+import {useGrapeByKeyGet, useGrapeGet} from "../hooks/entityHooks";
 
 const Grape = (props) => {
     const grape = useGrapeGet(props);

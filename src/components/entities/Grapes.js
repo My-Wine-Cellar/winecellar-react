@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import EntityList from "./cards/EntityList";
-import {useGrapeRedGet, useGrapeWhiteGet} from "./hooks/entityHooks";
+import EntityList from "./EntityList";
+import {useGrapeRedGet, useGrapeWhiteGet} from "../hooks/entityHooks";
 
 const Grapes = () => {
     const red = useGrapeRedGet();

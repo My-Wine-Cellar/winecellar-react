@@ -1,14 +1,14 @@
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import Route from "react-router-dom/es/Route";
-import Area from "../Area";
-import Countries from "../Countries";
-import Country from "../Country";
-import Grape from "../Grape";
-import Grapes from "../Grapes";
-import Producer from "../Producer.js";
-import Region from "../Region";
-import Wine from "../Wine";
+import Area from "../entities/Area";
+import Countries from "../entities/Countries";
+import Country from "../entities/Country";
+import Grape from "../entities/Grape";
+import Grapes from "../entities/Grapes";
+import Producer from "../entities/Producer.js";
+import Region from "../entities/Region";
+import Wine from "../entities/Wine";
 
 export const Routes = () => {
     return (

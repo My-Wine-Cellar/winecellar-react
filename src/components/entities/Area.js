@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import EntityHeader from "./cards/EntityHeader";
-import EntityList from "./cards/EntityList";
-import {useAreaByKeyGet, useAreaGet} from "./hooks/entityHooks";
+import EntityHeader from "./EntityHeader";
+import EntityList from "./EntityList";
+import {useAreaByKeyGet, useAreaGet} from "../hooks/entityHooks";
 import Paper from "@material-ui/core/Paper";
 import {makeStyles} from "@material-ui/styles";
 
