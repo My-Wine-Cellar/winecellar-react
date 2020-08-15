@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Api from "./axios/Api";
-import EntityHeader from "./cards/EntityHeader";
+import Api from "../axios/Api";
+import EntityHeader from "./EntityHeader";
 
 const Wine = (props) => {
     const [wine, setWine] = useState([])

@@ -11,7 +11,7 @@ import {Grid} from "@material-ui/core";
 import FormInput from "./FormInput";
 import Api from "../axios/Api";
 
-export default function EntityEditDialog(props) {
+export default function FormEntityEditDialog(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -39,10 +39,8 @@ export default function EntityEditDialog(props) {
             description: data.description
         }).then(response => {
             console.log('Response: ', response)
-            // TODO need to fix this so our component reloads
-            //props.history.push('/d/' + response.data.mywinecellar.countries.map(country => country.country.key))
+            console.log('Reload component here???')
         }).catch(error => console.log('Error: ', error))
-        //setOpen(false);
     };
 
     return (

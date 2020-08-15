@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import Api from "./axios/Api";
-import EntityHeader from "./cards/EntityHeader";
+import Api from "../axios/Api";
+import EntityHeader from "./EntityHeader";
 
 const Producer = (props) => {
     const [wine, setWine] = useState([])
