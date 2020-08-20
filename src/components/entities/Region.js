@@ -1,54 +1,31 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import EntityHeader from "./EntityHeader";
-import EntityList from "./EntityList";
-import {useRegionByKeyGet, useRegionGet} from "../hooks/entityHooks";
-import {makeStyles} from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
+import EntityHeader from "./EntityHeader";
+import {useRegionGet} from "../hooks/entityHooks";
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-}));
-
-const Region = (props) => {
-    const classes = useStyles();
-
-    const {region, area} = useRegionGet(props)
-    const data = useRegionByKeyGet(props)
+export const Region = (props) => {
+    const region = useRegionGet(props)
 
     const rgn = region.map(region => {
         return (
             <EntityHeader
-                key={region.region.id}
-                name={region.region.name}
-                weblink={region.region.weblink}
-                description={region.region.description}
-                id={region.region.id}
+                key={region.id}
+                name={region.name}
+                weblink={region.weblink}
+                description={region.description}
+                id={region.id}
                 entity={"region"}
-                data={data}
+                data={region}
             />
         )
     })
 
-    const areaList = area.map(areas => {
-        return (
-            <h5 className="card-header" key={areas.area.id}>
-                <Link to={`/d/` + props.match.params.countryKey + "/" +
-                props.match.params.regionKey + `/${areas.area.key}`}>{areas.area.name}</Link>
-            </h5>
-        )
-    })
-
     return (
-        <Paper className={classes.paper} elevation={24}>
-            {rgn}
-            <EntityList list={areaList} listName='Areas'/>
-        </Paper>
+        <>
+            <Paper elevation={8}>
+                {rgn}
+            </Paper>
+            <br/>
+        </>
     );
 }
-
-export default Region;
