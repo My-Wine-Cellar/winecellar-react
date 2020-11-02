@@ -1,40 +1,39 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 import EntityList from "./EntityList";
 import {useGrapeRedGet, useGrapeWhiteGet} from "../hooks/entityHooks";
 
-const Grapes = () => {
+export const Grapes = () => {
     const red = useGrapeRedGet();
     const white = useGrapeWhiteGet();
 
     const redGrapes = red.map(red => {
         return (
-            <h5 className="card-header" key={red.grape.id}>
-                <Link to={`/grape/${red.grape.key}`}>{red.grape.name}</Link>
-            </h5>
+            <div key={red.id}>
+                <Link to={`/grape/${red.key}`}>{red.name}</Link>
+            </div>
         )
     })
+
     const whiteGrapes = white.map(white => {
         return (
-            <h5 className="card-header" key={white.grape.key}>
-                <Link to={`/grape/${white.grape.key}`}>{white.grape.name}</Link>
-            </h5>
+            <div key={white.key}>
+                <Link to={`/grape/${white.key}`}>{white.name}</Link>
+            </div>
         )
     })
 
     return (
-        <div className="container">
-            <div className="card shadow">
-                <div className="row p-3">
-                    <div className="col-sm">
-                        <EntityList list={redGrapes} listName='Red Grapes'/>
-                    </div>
-                    <div className="col-sm">
-                        <EntityList list={whiteGrapes} listName='White Grapes'/>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <>
+            <Grid container spacing={4}>
+                <Grid item xs={6}>
+                    <EntityList list={redGrapes} listName='Red Grapes'/>
+                </Grid>
+                <Grid item xs={6}>
+                    <EntityList list={whiteGrapes} listName='White Grapes'/>
+                </Grid>
+            </Grid>
+        </>
     )
 }
-export default Grapes;

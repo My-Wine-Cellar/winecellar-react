@@ -1,57 +1,34 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import EntityHeader from "./EntityHeader";
-import EntityList from "./EntityList";
-import {useCountryByKeyGet, useCountryGet} from "../hooks/entityHooks";
 import Paper from "@material-ui/core/Paper";
-import {makeStyles} from "@material-ui/styles";
+import EntityHeader from "./EntityHeader";
+import {useCountryGet} from "../hooks/entityHooks";
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-}));
-
-const Country = (props) => {
-    const classes = useStyles();
-
-    const {country, region} = useCountryGet(props);
-    const data = useCountryByKeyGet(props);
+export const Country = (props) => {
+    const country = useCountryGet(props);
 
     const cntry = country.map(country => {
         return (
             <>
                 <EntityHeader
-                    key={country.country.id}
-                    name={country.country.name}
-                    weblink={country.country.weblink}
-                    description={country.country.description}
-                    flag={country.country.flag}
-                    id={country.country.id}
+                    key={country.id}
+                    name={country.name}
+                    weblink={country.weblink}
+                    description={country.description}
+                    flag={country.flag}
+                    id={country.id}
                     entity={"country"}
-                    data={data}
+                    data={country}
                 />
             </>
         )
     })
 
-    const regionList = region.map(regions => {
-        return (
-            <h5 className="card-header" key={regions.region.id}>
-                <Link
-                    to={'/d/' + props.match.params.countryKey + `/${regions.region.key}`}>{regions.region.name}</Link>
-                <img src="" alt=""/>
-            </h5>
-        )
-    })
-
     return (
-        <Paper className={classes.paper}>
-            {cntry}
-            <EntityList list={regionList} listName='Regions'/>
-        </Paper>
+        <>
+            <Paper elevation={8}>
+                {cntry}
+            </Paper>
+            <br/>
+        </>
     );
 }
-export default Country;

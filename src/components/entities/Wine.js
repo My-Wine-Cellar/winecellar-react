@@ -1,8 +1,16 @@
 import React, {useEffect, useState} from "react";
 import Api from "../axios/Api";
-import EntityHeader from "./EntityHeader";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import TableContainer from "@material-ui/core/TableContainer";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableRow from "@material-ui/core/TableRow";
+import Divider from "@material-ui/core/Divider";
 
-const Wine = (props) => {
+export const Wine = (props) => {
+
     const [wine, setWine] = useState([])
     const [closure, setClosure] = useState([])
     const [color, setColor] = useState([])
@@ -20,119 +28,80 @@ const Wine = (props) => {
                 setShape(response.data.mywinecellar.shapes)
                 setType(response.data.mywinecellar.types)
             }).catch(error => console.log('Error: ', error))
-    })
+    }, [])
 
     const wn = wine.map(wine => {
         return (
-            <div>
-                <EntityHeader key={wine.wine.id} name={wine.wine.name}/>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-12 mt-3">
-                            <div className="card">
-                                <div className="card-horizontal">
-                                    <div className="img-square-wrapper p-2">
-                                        <img src={'data:image/jpeg;charset=utf-8;base64,' + wine.wine.image}
-                                             alt={wine.wine.description} height="150" width="150"/>
-                                    </div>
-                                    <div className="card-body">
-                                        <p className="card-text">{wine.wine.description}</p>
-                                        <table className="table table-hover">
-                                            <tbody>
-                                            <tr>
-                                                <td><b>Producer</b></td>
-                                                <td>
-                                                    {/*<Link to={}></Link>*/}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Subarea</b></td>
-                                                <td>{wine.wine.subarea}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Vintage</b></td>
-                                                <td>{wine.wine.vintage}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Size</b></td>
-                                                <td>{wine.wine.size}L</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Alcohol</b></td>
-                                                <td>{wine.wine.alcohol}%</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Web</b></td>
-                                                <td><a target="_blank">
-                                                    <div>{wine.wine.weblink}</div>
-                                                </a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Grapes</b></td>
-                                                <td>
-                                                    <div>
-                                                        <a>grape names here</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <>
+                <CardContent>
+                    <Typography gutterBottom variant={"h5"}>
+                        {wine.name}
+                    </Typography>
+                    <Typography variant={"body1"} color={"textSecondary"}>
+                        {wine.description}
+                    </Typography><br/>
+                    <TableContainer>
+                        <Table>
+                            <TableBody>
+                                <Typography variant={"subtitle1"}>
+                                    <TableRow>Vintage:&nbsp;&nbsp;{wine.vintage}</TableRow>
+                                    <TableRow>Size:&nbsp;&nbsp;{wine.size}</TableRow>
+                                    <Divider/>
+                                    <TableRow>Alcohol:&nbsp;&nbsp;{wine.alcohol}%</TableRow>
+                                    <TableRow>Phone:&nbsp;&nbsp;{wine.phone}</TableRow>
+                                    <TableRow>Fax:&nbsp;&nbsp;{wine.fax}</TableRow>
+                                    <TableRow>Email:&nbsp;&nbsp;{wine.email}</TableRow>
+                                    <TableRow>Weblink:&nbsp;&nbsp;{wine.weblink}</TableRow>
+                                </Typography>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </CardContent>
+            </>
         )
     })
+
     const clsr = closure.map(closure => {
         return (
-            <div key={closure.closure.id}>
-                <h6>Closure: {closure.closure.name}</h6>
+            <div key={closure.id}>
+                <Typography>Closure: {closure.name}</Typography>
             </div>
         )
     })
     const clr = color.map(color => {
         return (
-            <div key={color.color.id}>
-                <h6>Color: {color.color.name}</h6>
+            <div key={color.id}>
+                <Typography>Color: {color.name}</Typography>
             </div>
         )
     })
     const shp = shape.map(shape => {
         return (
-            <div key={shape.shape.id}>
-                <h6>Shape: {shape.shape.name}</h6>
+            <div key={shape.id}>
+                <Typography>Shape: {shape.name}</Typography>
             </div>
         )
     })
     const typ = type.map(type => {
         return (
-            <div key={type.type.id}>
-                <h6>Type: {type.type.name}</h6>
+            <div key={type.id}>
+                <Typography>Type: {type.name}</Typography>
             </div>
         )
     })
+
     return (
-        <div>
-            <div className="container">
-                <div className="card p-2 shadow">
-                    <div className="container justify-content-center">
-                        {wn}
-                    </div>
-                    <div className="container">
-                        <div className="card-body">
-                            {clsr}
-                            {clr}
-                            {shp}
-                            {typ}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br/><br/>
-        </div>
+        <>
+            <Paper elevation={8}>
+                {wn}
+                <CardContent>
+                    {clsr}
+                    {clr}
+                    {shp}
+                    {typ}
+                </CardContent>
+
+            </Paper>
+        </>
     )
 }
-export default Wine;

@@ -15,15 +15,25 @@ import Navbar from "../views/Navbar";
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: "#B11227",
+            main: "#393f4d", //silver fox?
         },
         secondary: {
-            main: "#feda6a",
+            main: "#B11227", //wine red
         },
         background: {
             default: "#f4f5fd"
         },
     },
+    overrides: {
+        MuiSvgIcon: {
+            root: {
+                //color: "#B11227",
+                // '&:hover': {
+                //     backgroundColor: "#a59d9d"
+                // }
+            }
+        }
+    }
 })
 
 // applies to this file/function
@@ -55,13 +65,13 @@ function App() {
                 <div className={classes.appMain}>
                     <Routes/>
                 </div>
-                <Grid container direction={"row"} justify={"center"} alignItems={"center"}>
-                    <Tooltip title={"Add Wine"} aria-label={"add"} placement={"top"} arrow>
-                        <Fab className={classes.fab} color={"primary"} aria-label={"add"}>
-                            <AddIcon/>
-                        </Fab>
-                    </Tooltip>
-                </Grid>
+                {/*<Grid container direction={"row"} justify={"center"} alignItems={"center"}>*/}
+                {/*    <Tooltip title={"Add Wine"} aria-label={"add"} placement={"top"} arrow>*/}
+                {/*        <Fab className={classes.fab} color={"secondary"} aria-label={"add"}>*/}
+                {/*            <AddIcon/>*/}
+                {/*        </Fab>*/}
+                {/*    </Tooltip>*/}
+                {/*</Grid>*/}
                 <CssBaseline/>
             </ThemeProvider>
         </>

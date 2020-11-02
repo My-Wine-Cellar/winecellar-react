@@ -9,26 +9,27 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(1),
         textAlign: 'center',
-        color: theme.palette.text.secondary,
+        color: theme.palette.secondary.main, //don't keep this, but helps show how to apply from muiTheme
     },
 }));
 
-const EntityList = ({list, listName}) => {
+export default function EntityList({list, listName}) {
     const classes = useStyles();
 
     return (
         <>
             <Grid className={classes.grid}>
-                <Paper className={classes.paper} elevation={2}>
-                    <Typography variant={"h6"}>
+                <Paper className={classes.paper} elevation={8}>
+                    <Typography variant={"h4"}>
                         {listName}
                     </Typography>
                     <List>
-                        {list}
+                        <Typography variant={"h6"}>
+                            {list}
+                        </Typography>
                     </List>
                 </Paper>
             </Grid>
         </>
     )
 }
-export default EntityList;

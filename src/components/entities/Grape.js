@@ -1,36 +1,28 @@
 import React from "react";
+import Paper from "@material-ui/core/Paper";
 import EntityHeader from "./EntityHeader";
-import {useGrapeByKeyGet, useGrapeGet} from "../hooks/entityHooks";
+import {useGrapeGet} from "../hooks/entityHooks";
 
-const Grape = (props) => {
+export const Grape = (props) => {
     const grape = useGrapeGet(props);
-    const data = useGrapeByKeyGet(props);
 
     const grp = grape.map(grape => {
         return (
             <EntityHeader
-                key={grape.grape.id}
-                name={grape.grape.name}
-                weblink={grape.grape.weblink}
-                description={grape.grape.description}
-                id={grape.grape.id}
+                key={grape.id}
+                name={grape.name}
+                weblink={grape.weblink}
+                description={grape.description}
+                id={grape.id}
                 entity={"grape"}
-                data={data}
+                data={grape}
             />
         )
     })
 
     return (
-        <div className="container">
-            <div className="card p-2 shadow">
-                <div className="container">
-                    <div className="card shadow p-4 m-3">
-                        {grp}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Paper elevation={8}>
+            {grp}
+        </Paper>
     )
 }
-
-export default Grape;
